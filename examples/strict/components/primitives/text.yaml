@@ -1,0 +1,51 @@
+dcf_version: "1.0.0"
+profile: strict
+
+component: Text
+category: primitive
+description: Typography rendering with semantic variants
+
+props:
+  value: string
+  element:
+    type: enum
+    values: [p, span, h1, h2, h3, h4, h5, h6, label]
+    default: span
+  variant:
+    type: enum
+    values: [body, body-sm, heading-lg, heading-md]
+    default: body
+  color:
+    type: enum
+    values: [default, muted, primary, error, success]
+    default: default
+  align:
+    type: enum
+    values: [start, center, end]
+    default: start
+  truncate:
+    type: boolean
+    default: false
+
+tokens:
+  default:
+    color: color.fg
+  muted:
+    color: color.fg-muted
+  primary:
+    color: color.primary
+  error:
+    color: color.error
+  success:
+    color: color.success
+
+layout:
+  font:
+    body: font.body
+    body-sm: font.body-sm
+    heading-lg: font.heading-lg
+    heading-md: font.heading-md
+
+accessibility:
+  role: none
+  keyboard: false

@@ -1,0 +1,43 @@
+dcf_version: "1.0.0"
+profile: strict
+
+component: Container
+category: primitive
+description: Flexible layout wrapper with directional support
+
+props:
+  direction:
+    type: enum
+    values: [row, column]
+    default: column
+  align:
+    type: enum
+    values: [start, center, end, stretch, baseline]
+    default: stretch
+  justify:
+    type: enum
+    values: [start, center, end, between, around, evenly]
+    default: start
+  gap:
+    type: space_token
+    optional: true
+  padding:
+    type: space_token
+    optional: true
+  wrap:
+    type: boolean
+    default: false
+  condition:
+    type: string
+    optional: true
+    description: Conditional rendering expression
+
+layout:
+  display: flex
+  direction:
+    default: column
+    below_sm: column
+
+accessibility:
+  role: none
+  keyboard: false

@@ -1,0 +1,19 @@
+{
+  "theme": {
+    "color": {
+      "bg": "#111827",
+      "fg": "#F9FAFB",
+      "primary": "#3B82F6",
+      "primary-hover": "#2563EB",
+      "muted": "#9CA3AF",
+      "border": "#374151"
+    },
+    "space": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px"
+    }
+  }
+}

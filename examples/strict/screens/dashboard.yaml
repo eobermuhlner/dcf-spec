@@ -1,0 +1,88 @@
+dcf_version: "1.0.0"
+profile: strict
+
+screen: DashboardPage
+intent: dashboard
+description: Overview of key metrics and recent activity
+
+data:
+  stats:
+    source: api
+    endpoint: /api/stats
+    method: GET
+    cache: 5m
+    stale_while_revalidate: true
+
+  recentItems:
+    source: api
+    endpoint: /api/items
+    method: GET
+    params:
+      limit: 5
+      sort: -created_at
+    refresh: on_focus
+
+strings:
+  title:
+    key: dashboard.title
+    fallback: "Dashboard"
+  stats_title:
+    key: dashboard.stats.title
+    fallback: "Overview"
+  recent_title:
+    key: dashboard.recent.title
+    fallback: "Recent Items"
+  item_count:
+    key: dashboard.stats.items
+    fallback:
+      one: "{count} item"
+      other: "{count} items"
+
+primary_actions:
+  - label: Create Item
+    action: navigate(item_create)
+    icon: icon.plus
+
+content:
+  - component: Container
+    props:
+      direction: column
+      gap: space.lg
+
+    children:
+      - component: Text
+        props:
+          element: h1
+          variant: heading-lg
+          value: $strings.title
+
+      - component: Container
+        props:
+          direction: row
+          gap: space.md
+          wrap: true
+
+        children:
+          - component: Card
+            props:
+              title: $strings.stats_title
+            children:
+              - component: Text
+                props:
+                  value: $strings.item_count
+                  count: $stats.data.totalItems
+
+      - component: Card
+        props:
+          title: $strings.recent_title
+        children:
+          - component: ItemsList
+            condition: $recentItems.data
+            props:
+              items: $recentItems.data
+              compact: true
+
+          - component: EmptyState
+            condition: "!$recentItems.data && !$recentItems.loading"
+            props:
+              message: "No recent items"

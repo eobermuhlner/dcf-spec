@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/layout.schema.json",
+  "title": "DCF Layout Schema",
+  "description": "Schema for Design Concept Format layout templates",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["lite", "standard", "strict"]
+    },
+    "layout": {
+      "type": "string",
+      "description": "Layout name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description"
+    },
+    "direction": {
+      "type": "string",
+      "enum": ["ltr", "rtl", "auto"],
+      "default": "auto"
+    },
+    "regions": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/region"
+      }
+    }
+  },
+  "required": ["dcf_version", "layout", "regions"],
+  "definitions": {
+    "region": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["persistent", "dynamic"],
+          "description": "Whether the region persists across navigation"
+        },
+        "component": {
+          "type": "string",
+          "description": "Component to render in this region"
+        },
+        "position": {
+          "type": "string",
+          "enum": ["inline-start", "inline-end", "block-start", "block-end"],
+          "description": "Logical position (RTL-aware)"
+        },
+        "scroll": {
+          "type": "boolean",
+          "description": "Whether the region is scrollable"
+        },
+        "responsive": {
+          "$ref": "#/definitions/responsive_config"
+        }
+      }
+    },
+    "responsive_config": {
+      "type": "object",
+      "properties": {
+        "hidden_below": {
+          "type": "string",
+          "description": "Breakpoint below which region is hidden"
+        },
+        "collapsed_at": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Breakpoints at which region is collapsed"
+        },
+        "expanded_at": {
+          "type": "string",
+          "description": "Breakpoint at which region is expanded"
+        },
+        "padding": {
+          "type": "object",
+          "properties": {
+            "default": { "type": "string" }
+          },
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

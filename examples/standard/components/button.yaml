@@ -1,0 +1,60 @@
+dcf_version: "1.0.0"
+profile: standard
+
+component: Button
+category: control
+description: Interactive button for triggering actions
+
+props:
+  label: string
+  icon:
+    type: icon_ref
+    optional: true
+  disabled:
+    type: boolean
+    default: false
+
+variants:
+  intent: [primary, secondary]
+  size: [sm, md, lg]
+
+tokens:
+  primary:
+    background: color.primary
+    foreground: color.bg
+  secondary:
+    background: color.bg
+    foreground: color.fg
+    border: color.border
+
+states:
+  default: {}
+
+  hover:
+    transform:
+      background: darken(10%)
+
+  focus:
+    outline:
+      width: 2px
+      color: color.primary
+      offset: 2px
+
+  disabled:
+    opacity: 0.5
+    cursor: not-allowed
+
+state_precedence: [disabled, focus, hover, default]
+
+layout:
+  padding:
+    sm: space.xs space.sm
+    md: space.sm space.md
+    lg: space.md space.lg
+  borderRadius: radius.md
+
+accessibility:
+  role: button
+  keyboard: true
+  reduced_motion:
+    transition: none

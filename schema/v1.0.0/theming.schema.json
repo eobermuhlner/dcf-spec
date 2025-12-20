@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/theming.schema.json",
+  "title": "DCF Theming Configuration Schema",
+  "description": "Schema for Design Concept Format theming merge contract",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "theming": {
+      "$ref": "#/definitions/theming_config"
+    }
+  },
+  "required": ["dcf_version", "theming"],
+  "definitions": {
+    "theming_config": {
+      "type": "object",
+      "properties": {
+        "customizable_token_groups": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Token groups that can be customized by themes"
+        },
+        "required_themes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Themes that must be provided"
+        },
+        "optional_themes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional theme variations"
+        },
+        "supports_density": {
+          "type": "boolean",
+          "description": "Whether density variants are supported"
+        },
+        "supports_shape": {
+          "type": "boolean",
+          "description": "Whether shape variants are supported"
+        },
+        "merge_order": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Order in which theme layers are merged"
+        }
+      },
+      "required": ["customizable_token_groups", "required_themes", "merge_order"]
+    }
+  }
+}

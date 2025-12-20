@@ -1,0 +1,20 @@
+dcf_version: "1.0.0"
+profile: standard
+
+layout: main
+description: Standard application shell with header and content
+
+direction: auto
+
+regions:
+  header:
+    role: persistent
+    component: AppHeader
+
+  content:
+    role: dynamic
+    scroll: true
+    responsive:
+      padding:
+        default: space.lg
+        below_md: space.md

@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/rules.schema.json",
+  "title": "DCF Rules Schema",
+  "description": "Schema for Design Concept Format design rules and constraints",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["lite", "standard", "strict"]
+    },
+    "rules": {
+      "$ref": "#/definitions/rules_config"
+    },
+    "intents": {
+      "$ref": "#/definitions/intents_config"
+    }
+  },
+  "required": ["dcf_version", "rules"],
+  "definitions": {
+    "rules_config": {
+      "type": "object",
+      "properties": {
+        "navigation": {
+          "type": "object",
+          "properties": {
+            "max_depth": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Maximum navigation depth"
+            },
+            "confirm_on_destructive": {
+              "type": "boolean",
+              "description": "Require confirmation for destructive actions"
+            }
+          }
+        },
+        "layout": {
+          "type": "object",
+          "properties": {
+            "one_primary_action_per_screen": {
+              "type": "boolean",
+              "description": "Enforce single primary action per screen"
+            }
+          }
+        },
+        "accessibility": {
+          "type": "object",
+          "properties": {
+            "min_touch_target": {
+              "type": "string",
+              "description": "Minimum touch target size"
+            },
+            "focus_visible": {
+              "type": "boolean",
+              "description": "Require visible focus indicators"
+            },
+            "color_contrast_ratio": {
+              "type": "number",
+              "description": "Minimum color contrast ratio"
+            }
+          }
+        },
+        "components": {
+          "type": "object",
+          "properties": {
+            "require_descriptions": {
+              "type": "boolean",
+              "description": "Require descriptions for all components"
+            },
+            "require_accessibility": {
+              "type": "boolean",
+              "description": "Require accessibility section in components"
+            }
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "intents_config": {
+      "type": "object",
+      "properties": {
+        "custom": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" }
+            },
+            "required": ["name"]
+          },
+          "description": "Custom intent definitions"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+dcf_version: "1.0.0"
+profile: strict
+
+rules:
+  navigation:
+    max_depth: 3
+    confirm_on_destructive: true
+
+  layout:
+    one_primary_action_per_screen: true
+
+  accessibility:
+    min_touch_target: 44px
+    focus_visible: true
+    color_contrast_ratio: 4.5
+
+  components:
+    require_descriptions: true
+    require_accessibility: true
+
+intents:
+  custom: []

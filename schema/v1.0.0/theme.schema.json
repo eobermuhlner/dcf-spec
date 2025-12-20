@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/theme.schema.json",
+  "title": "DCF Theme Schema",
+  "description": "Schema for Design Concept Format theme definitions",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "theme": {
+      "$ref": "#/definitions/theme_values"
+    }
+  },
+  "required": ["theme"],
+  "definitions": {
+    "theme_values": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Color token overrides"
+        },
+        "space": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Spacing token overrides"
+        },
+        "radius": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Border radius token overrides"
+        },
+        "font": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "description": "Font token overrides"
+        },
+        "duration": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Animation duration overrides"
+        },
+        "easing": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Animation easing overrides"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

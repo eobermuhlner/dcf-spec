@@ -1,0 +1,163 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/tokens.schema.json",
+  "title": "DCF Tokens Schema",
+  "description": "Schema for Design Concept Format design tokens",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "color": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/token_value"
+      }
+    },
+    "space": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/token_value"
+      }
+    },
+    "radius": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/token_value"
+      }
+    },
+    "font": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/font_token"
+      }
+    },
+    "duration": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/token_value"
+      }
+    },
+    "easing": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/token_value"
+      }
+    },
+    "motion": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/token_value"
+      }
+    },
+    "breakpoint": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/token_value"
+      }
+    },
+    "icon": {
+      "$ref": "#/definitions/icon_config"
+    },
+    "icons": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/icon_token"
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/asset_token"
+      }
+    }
+  },
+  "required": ["dcf_version"],
+  "definitions": {
+    "token_value": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The token value (concrete or theme reference)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description of the token"
+        }
+      },
+      "required": ["value"],
+      "additionalProperties": false
+    },
+    "font_token": {
+      "type": "object",
+      "properties": {
+        "family": { "type": "string" },
+        "size": { "type": "string" },
+        "lineHeight": { "type": ["string", "number"] },
+        "weight": { "type": ["string", "number"] },
+        "letterSpacing": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "icon_config": {
+      "type": "object",
+      "properties": {
+        "set": {
+          "type": "string",
+          "description": "Icon set name (e.g., lucide, heroicons)"
+        },
+        "prefix": {
+          "type": "string",
+          "description": "Prefix for icon references"
+        },
+        "fallback": {
+          "type": "string",
+          "description": "Fallback icon reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "icon_token": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "value": { "type": "string" }
+          },
+          "required": ["value"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "ltr": { "type": "string" },
+            "rtl": { "type": "string" }
+          },
+          "required": ["ltr", "rtl"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "asset_token": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "value": { "type": "string" }
+          },
+          "required": ["value"]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "light": { "type": "string" },
+            "dark": { "type": "string" }
+          },
+          "required": ["light", "dark"]
+        }
+      ]
+    }
+  }
+}

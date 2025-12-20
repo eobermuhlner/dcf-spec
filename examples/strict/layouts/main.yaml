@@ -1,0 +1,31 @@
+dcf_version: "1.0.0"
+profile: strict
+
+layout: main
+description: Standard application shell with sidebar and content
+
+direction: auto
+
+regions:
+  header:
+    role: persistent
+    component: AppHeader
+    position: block-start
+
+  sidebar:
+    role: persistent
+    component: SideNav
+    position: inline-start
+    responsive:
+      hidden_below: md
+      collapsed_at: [md, lg]
+      expanded_at: xl
+
+  content:
+    role: dynamic
+    scroll: true
+    responsive:
+      padding:
+        default: space.lg
+        below_md: space.md
+        below_sm: space.sm

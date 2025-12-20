@@ -1,0 +1,116 @@
+dcf_version: "1.0.0"
+profile: strict
+
+component: Button
+category: control
+description: Interactive button for triggering actions
+
+props:
+  label: string
+  icon:
+    type: icon_ref
+    optional: true
+    position: [leading, trailing]
+  iconOnly:
+    type: boolean
+    default: false
+    requires: icon
+  disabled:
+    type: boolean
+    default: false
+  loading:
+    type: boolean
+    default: false
+
+variants:
+  intent: [primary, secondary, danger]
+  size: [sm, md, lg]
+  style: [solid, outline, ghost]
+
+tokens:
+  primary:
+    background: color.primary
+    foreground: color.on-primary
+    border: color.primary
+  secondary:
+    background: color.secondary
+    foreground: color.fg
+    border: color.border
+  danger:
+    background: color.error
+    foreground: color.on-primary
+    border: color.error
+
+states:
+  default: {}
+
+  hover:
+    transform:
+      background: darken(10%)
+    transition:
+      property: background
+      duration: duration.fast
+      easing: easing.ease-out
+
+  focus:
+    outline:
+      width: 2px
+      color: color.border-focus
+      offset: 2px
+
+  active:
+    transform:
+      background: darken(15%)
+    scale: 0.98
+
+  disabled:
+    opacity: 0.5
+    cursor: not-allowed
+
+  loading:
+    content: spinner
+    pointer_events: none
+
+state_precedence: [disabled, loading, focus, active, hover, default]
+
+variant_matrix:
+  mode: blocklist
+
+  deny:
+    - intent: danger
+      style: ghost
+    - intent: secondary
+      style: ghost
+    - size: sm
+      style: outline
+
+  fallback:
+    style: solid
+
+variant_defaults:
+  intent: primary
+  size: md
+  style: solid
+
+layout:
+  minHeight: size.touch-target
+  padding:
+    sm: space.xs space.sm
+    md: space.sm space.md
+    lg: space.md space.lg
+  borderRadius: radius.md
+  icon:
+    size:
+      sm: 16px
+      md: 20px
+      lg: 24px
+    margin:
+      leading: space.none
+      trailing: space.xs
+
+accessibility:
+  role: button
+  keyboard: true
+  reduced_motion:
+    transition: none
+  iconOnly_requires_aria_label: true

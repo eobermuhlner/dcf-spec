@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/flow.schema.json",
+  "title": "DCF Flow Schema",
+  "description": "Schema for Design Concept Format interaction flows",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["lite", "standard", "strict"]
+    },
+    "flow": {
+      "type": "string",
+      "description": "Flow name (PascalCase)"
+    },
+    "start": {
+      "type": "string",
+      "description": "Starting screen for the flow"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/step"
+      }
+    },
+    "error_recovery": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/recovery_strategy"
+      }
+    }
+  },
+  "required": ["dcf_version", "flow", "start", "steps"],
+  "definitions": {
+    "step": {
+      "type": "object",
+      "properties": {
+        "screen": {
+          "type": "string",
+          "description": "Screen for this step"
+        },
+        "on_submit": {
+          "$ref": "#/definitions/submit_handler"
+        },
+        "on_cancel": {
+          "type": "string",
+          "description": "Target screen on cancel"
+        }
+      },
+      "required": ["screen"]
+    },
+    "submit_handler": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "oneOf": [
+            { "type": "string" },
+            { "$ref": "#/definitions/transition_target" }
+          ]
+        },
+        "error": {
+          "oneOf": [
+            { "type": "string" },
+            { "$ref": "#/definitions/error_target" }
+          ]
+        }
+      },
+      "required": ["success", "error"]
+    },
+    "transition_target": {
+      "type": "object",
+      "properties": {
+        "target": { "type": "string" },
+        "params": { "type": "object" }
+      },
+      "required": ["target"]
+    },
+    "error_target": {
+      "type": "object",
+      "properties": {
+        "target": { "type": "string" },
+        "context": { "type": "object" },
+        "field_errors": { "type": "object" }
+      },
+      "required": ["target"]
+    },
+    "recovery_strategy": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": ["highlight_fields", "show_modal", "redirect", "show_toast"]
+        },
+        "persist_input": { "type": "boolean" },
+        "focus": { "type": "string" },
+        "modal": { "type": "string" },
+        "target": { "type": "string" },
+        "return_to": { "type": "string" },
+        "toast": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string" },
+            "message": { "type": "string" },
+            "retry": { "type": "boolean" }
+          }
+        },
+        "params": { "type": "object" }
+      },
+      "required": ["action"]
+    }
+  }
+}

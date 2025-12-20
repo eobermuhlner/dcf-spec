@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/screen.schema.json",
+  "title": "DCF Screen Schema",
+  "description": "Schema for Design Concept Format screen definitions",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["lite", "standard", "strict"]
+    },
+    "screen": {
+      "type": "string",
+      "description": "Screen name (PascalCase)"
+    },
+    "intent": {
+      "type": "string",
+      "enum": ["browse", "view", "edit", "create", "confirm", "error", "empty", "loading", "authenticate", "callback", "search", "settings", "dashboard"],
+      "description": "Primary intent of the screen"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description"
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/data_source"
+      }
+    },
+    "strings": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/string_definition"
+      }
+    },
+    "primary_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/action"
+      }
+    },
+    "content": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/content_item"
+      }
+    },
+    "error_display": {
+      "$ref": "#/definitions/error_display"
+    }
+  },
+  "required": ["dcf_version", "screen", "intent"],
+  "definitions": {
+    "data_source": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["api", "context", "local", "derived", "static"]
+        },
+        "endpoint": { "type": "string" },
+        "method": {
+          "type": "string",
+          "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]
+        },
+        "params": { "type": "object" },
+        "headers": { "type": "object" },
+        "refresh": {
+          "type": "string",
+          "enum": ["on_focus", "on_mount", "manual", "interval"]
+        },
+        "cache": { "type": "string" },
+        "stale_while_revalidate": { "type": "boolean" },
+        "key": { "type": "string" },
+        "initial": {},
+        "persist": { "type": "boolean" },
+        "from": { "type": "string" },
+        "transform": { "type": "string" },
+        "value": {}
+      },
+      "required": ["source"]
+    },
+    "string_definition": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "i18n key for the string"
+        },
+        "fallback": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "properties": {
+                "one": { "type": "string" },
+                "other": { "type": "string" }
+              }
+            }
+          ]
+        }
+      },
+      "required": ["key", "fallback"]
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "action": { "type": "string" },
+        "icon": { "type": "string" },
+        "variant": { "type": "string" }
+      },
+      "required": ["label", "action"]
+    },
+    "content_item": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "type": "string",
+          "description": "Component name to render"
+        },
+        "condition": {
+          "type": "string",
+          "description": "Conditional rendering expression"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": ["component"]
+    },
+    "error_display": {
+      "type": "object",
+      "properties": {
+        "inline": {
+          "type": "object",
+          "properties": {
+            "component": { "type": "string" },
+            "position": { "type": "string" }
+          }
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "component": { "type": "string" },
+            "position": { "type": "string" },
+            "show_when": { "type": "string" }
+          }
+        },
+        "toast": {
+          "type": "object",
+          "properties": {
+            "component": { "type": "string" },
+            "types": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

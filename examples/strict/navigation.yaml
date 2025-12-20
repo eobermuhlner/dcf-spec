@@ -1,0 +1,43 @@
+dcf_version: "1.0.0"
+profile: strict
+
+app: ItemManager
+
+routes:
+  dashboard:
+    path: /
+    layout: main
+    screen: DashboardPage
+
+  items:
+    path: /items
+    layout: main
+    screen: ItemsPage
+
+  item_detail:
+    path: /items/:id
+    layout: main
+    screen: ItemDetailPage
+    parent: items
+
+  item_create:
+    path: /items/new
+    layout: main
+    screen: ItemCreatePage
+    parent: items
+
+transitions:
+  - from: items
+    to: item_detail
+    trigger: click
+    source: ItemsTable.row
+
+  - from: items
+    to: item_create
+    trigger: click
+    source: CreateButton
+
+  - from: item_create
+    to: item_detail
+    trigger: submit
+    source: ItemForm

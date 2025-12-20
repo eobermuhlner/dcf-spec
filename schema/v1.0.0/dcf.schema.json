@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/dcf.schema.json",
+  "title": "DCF Root Schema",
+  "description": "Root schema for Design Concept Format files",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the DCF specification"
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["lite", "standard", "strict"],
+      "default": "standard",
+      "description": "Validation profile level"
+    },
+    "capabilities": {
+      "$ref": "#/definitions/capabilities"
+    }
+  },
+  "required": ["dcf_version"],
+  "definitions": {
+    "capabilities": {
+      "type": "object",
+      "description": "Declare which DCF layers are in use",
+      "properties": {
+        "tokens": { "type": "boolean", "default": true },
+        "themes": { "type": "boolean", "default": true },
+        "components": { "type": "boolean", "default": true },
+        "layouts": { "type": "boolean", "default": true },
+        "navigation": { "type": "boolean", "default": true },
+        "screens": { "type": "boolean", "default": true },
+        "flows": { "type": "boolean", "default": true },
+        "rules": { "type": "boolean", "default": true },
+        "i18n": { "type": "boolean", "default": true }
+      },
+      "additionalProperties": false
+    },
+    "token_reference": {
+      "type": "string",
+      "pattern": "^\\{[a-zA-Z][a-zA-Z0-9._-]*\\}$|^[a-zA-Z][a-zA-Z0-9._-]*$",
+      "description": "Reference to a design token (e.g., 'color.accent' or '{theme.color.bg}')"
+    },
+    "space_token": {
+      "type": "string",
+      "pattern": "^space\\.[a-zA-Z][a-zA-Z0-9_-]*$",
+      "description": "Reference to a spacing token"
+    },
+    "color_token": {
+      "type": "string",
+      "pattern": "^color\\.[a-zA-Z][a-zA-Z0-9_-]*$",
+      "description": "Reference to a color token"
+    },
+    "data_binding": {
+      "type": "string",
+      "pattern": "^\\$[a-zA-Z][a-zA-Z0-9._]*$",
+      "description": "Data binding reference (e.g., '$users.data')"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+dcf_version: "1.0.0"
+profile: lite
+
+component: Button
+
+props:
+  label: string
+
+layout:
+  padding: space.md
+  background: color.primary
+  borderRadius: radius.md

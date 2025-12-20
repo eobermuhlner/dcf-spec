@@ -1,0 +1,22 @@
+dcf_version: "1.0.0"
+profile: standard
+
+app: UserManagement
+
+routes:
+  users:
+    path: /users
+    layout: main
+    screen: UsersPage
+
+  user_detail:
+    path: /users/:id
+    layout: main
+    screen: UserDetailPage
+    parent: users
+
+transitions:
+  - from: users
+    to: user_detail
+    trigger: click
+    source: UsersTable.row

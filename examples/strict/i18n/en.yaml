@@ -1,0 +1,72 @@
+dcf_version: "1.0.0"
+locale: en
+direction: ltr
+
+strings:
+  common:
+    save: "Save"
+    cancel: "Cancel"
+    delete: "Delete"
+    edit: "Edit"
+    create: "Create"
+    loading: "Loading..."
+    error: "An error occurred"
+    retry: "Try again"
+
+  dashboard:
+    title: "Dashboard"
+    stats:
+      title: "Overview"
+      items:
+        one: "{count} item"
+        other: "{count} items"
+    recent:
+      title: "Recent Items"
+
+  items:
+    page:
+      title: "Items"
+    empty_state: "No items found"
+    create:
+      title: "Create Item"
+      success: "Item created successfully"
+    edit:
+      title: "Edit Item"
+      success: "Item updated successfully"
+    delete:
+      confirm: "Are you sure you want to delete {name}?"
+      success: "Item deleted successfully"
+    count:
+      one: "{count} item"
+      other: "{count} items"
+
+  errors:
+    validation: "Please fix the errors below"
+    network: "Connection lost. Check your network."
+    server: "Something went wrong. Please try again."
+    not_found: "The requested item was not found"
+    unauthorized: "You don't have permission to do this"
+
+format:
+  date:
+    short:
+      style: short
+    long:
+      style: long
+    relative:
+      style: relative
+
+  number:
+    decimal:
+      style: decimal
+    currency:
+      style: currency
+      currency: auto
+    percent:
+      style: percent
+
+  list:
+    conjunction:
+      style: conjunction
+    disjunction:
+      style: disjunction

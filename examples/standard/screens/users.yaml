@@ -1,0 +1,41 @@
+dcf_version: "1.0.0"
+profile: standard
+
+screen: UsersPage
+intent: browse
+description: View and manage users
+
+data:
+  users:
+    source: api
+    endpoint: /api/users
+    method: GET
+    refresh: on_focus
+
+strings:
+  title:
+    key: users.page.title
+    fallback: "Users"
+  empty:
+    key: users.empty_state
+    fallback: "No users found"
+
+primary_actions:
+  - label: Create User
+    action: navigate(user_create)
+
+content:
+  - component: PageHeader
+    props:
+      title: $strings.title
+
+  - component: UsersTable
+    condition: $users.data
+    props:
+      data: $users.data
+      loading: $users.loading
+
+  - component: EmptyState
+    condition: "!$users.data && !$users.loading"
+    props:
+      message: $strings.empty

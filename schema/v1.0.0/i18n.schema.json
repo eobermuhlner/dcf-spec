@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/i18n.schema.json",
+  "title": "DCF i18n Schema",
+  "description": "Schema for Design Concept Format internationalization files",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+      "description": "Locale code (e.g., 'en', 'en-US', 'de')"
+    },
+    "direction": {
+      "type": "string",
+      "enum": ["ltr", "rtl"],
+      "default": "ltr"
+    },
+    "strings": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/string_value"
+      }
+    },
+    "format": {
+      "$ref": "#/definitions/format_config"
+    }
+  },
+  "definitions": {
+    "string_value": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "description": "Plural forms",
+          "properties": {
+            "zero": { "type": "string" },
+            "one": { "type": "string" },
+            "two": { "type": "string" },
+            "few": { "type": "string" },
+            "many": { "type": "string" },
+            "other": { "type": "string" }
+          },
+          "required": ["other"]
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/string_value"
+          },
+          "description": "Nested namespace"
+        }
+      ]
+    },
+    "format_config": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/date_format"
+          }
+        },
+        "number": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/number_format"
+          }
+        },
+        "list": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/list_format"
+          }
+        }
+      }
+    },
+    "date_format": {
+      "type": "object",
+      "properties": {
+        "style": {
+          "type": "string",
+          "enum": ["short", "medium", "long", "full", "relative"]
+        }
+      }
+    },
+    "number_format": {
+      "type": "object",
+      "properties": {
+        "style": {
+          "type": "string",
+          "enum": ["decimal", "currency", "percent", "unit"]
+        },
+        "currency": { "type": "string" },
+        "unit": { "type": "string" }
+      }
+    },
+    "list_format": {
+      "type": "object",
+      "properties": {
+        "style": {
+          "type": "string",
+          "enum": ["conjunction", "disjunction", "unit"]
+        }
+      }
+    }
+  }
+}

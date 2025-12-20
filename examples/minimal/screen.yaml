@@ -1,0 +1,10 @@
+dcf_version: "1.0.0"
+profile: lite
+
+screen: HomePage
+intent: browse
+
+content:
+  - component: Button
+    props:
+      label: "Get Started"

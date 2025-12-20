@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dcf-spec.dev/schema/v1.0.0/component.schema.json",
+  "title": "DCF Component Schema",
+  "description": "Schema for Design Concept Format component definitions",
+  "type": "object",
+  "properties": {
+    "dcf_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["lite", "standard", "strict"]
+    },
+    "component": {
+      "type": "string",
+      "description": "Component name (PascalCase)"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["primitive", "control", "form", "navigation", "layout", "feedback", "display", "media", "content", "auth"],
+      "description": "Component category for organization"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the component"
+    },
+    "props": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/prop_definition"
+      }
+    },
+    "variants": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "tokens": {
+      "type": "object",
+      "description": "Token mappings per variant",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": { "type": "string" }
+      }
+    },
+    "states": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/state_definition"
+          }
+        }
+      ]
+    },
+    "state_precedence": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Order of state precedence (first wins)"
+    },
+    "layout": {
+      "$ref": "#/definitions/layout_properties"
+    },
+    "accessibility": {
+      "$ref": "#/definitions/accessibility"
+    },
+    "variant_matrix": {
+      "$ref": "#/definitions/variant_matrix"
+    },
+    "variant_defaults": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "required": ["dcf_version", "component"],
+  "definitions": {
+    "prop_definition": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string" },
+            "optional": { "type": "boolean" },
+            "default": {},
+            "requires": { "type": "string" },
+            "position": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      ]
+    },
+    "state_definition": {
+      "type": "object",
+      "properties": {
+        "transform": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "background": { "type": "string" },
+        "foreground": { "type": "string" },
+        "opacity": { "type": "number" },
+        "cursor": { "type": "string" },
+        "scale": { "type": "number" },
+        "outline": {
+          "type": "object",
+          "properties": {
+            "width": { "type": "string" },
+            "color": { "type": "string" },
+            "offset": { "type": "string" }
+          }
+        },
+        "content": { "type": "string" },
+        "pointer_events": { "type": "string" },
+        "transition": {
+          "$ref": "#/definitions/transition"
+        }
+      },
+      "additionalProperties": true
+    },
+    "transition": {
+      "type": "object",
+      "properties": {
+        "property": { "type": "string" },
+        "duration": { "type": "string" },
+        "easing": { "type": "string" }
+      }
+    },
+    "layout_properties": {
+      "type": "object",
+      "properties": {
+        "minHeight": { "type": "string" },
+        "minWidth": { "type": "string" },
+        "padding": { "type": "string" },
+        "margin": { "type": "string" },
+        "borderRadius": { "type": "string" },
+        "background": { "type": "string" },
+        "direction": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "object" }
+          ]
+        },
+        "gap": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "object" }
+          ]
+        },
+        "icon": {
+          "type": "object",
+          "properties": {
+            "size": { "type": "object" },
+            "color": { "type": "string" },
+            "margin": { "type": "object" }
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "accessibility": {
+      "type": "object",
+      "properties": {
+        "role": { "type": "string" },
+        "keyboard": { "type": "boolean" },
+        "reduced_motion": {
+          "type": "object",
+          "properties": {
+            "transition": { "type": "string" }
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "variant_matrix": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["allowlist", "blocklist", "all"]
+        },
+        "allow": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "deny": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "fallback": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+dcf_version: "1.0.0"
+profile: strict
+
+flow: CreateItem
+start: ItemsPage
+
+steps:
+  - screen: ItemCreatePage
+    on_submit:
+      success:
+        target: ItemDetailPage
+        params:
+          id: $result.item.id
+          toast: "Item created successfully"
+
+      error:
+        target: ItemCreatePage
+        context:
+          error_type: $error.type
+          error_message: $error.message
+          error_fields: $error.fields
+          submitted_data: $input
+
+        field_errors:
+          name: $error.fields.name
+          description: $error.fields.description
+
+    on_cancel: ItemsPage
+
+error_recovery:
+  validation:
+    action: highlight_fields
+    persist_input: true
+    focus: first_error_field
+
+  conflict:
+    action: show_modal
+    modal: ConflictResolutionModal
+    params:
+      existing: $error.existing
+      submitted: $input
+
+  unauthorized:
+    action: redirect
+    target: LoginPage
+    return_to: $current_screen
+
+  server:
+    action: show_toast
+    toast:
+      type: error
+      message: "Something went wrong. Please try again."
+      retry: true
+
+  network:
+    action: show_toast
+    toast:
+      type: error
+      message: "Connection lost. Check your network."
+      retry: true

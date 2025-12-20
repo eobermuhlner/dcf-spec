@@ -1,0 +1,9 @@
+dcf_version: "1.0.0"
+
+theming:
+  customizable_token_groups: [color, space, radius]
+  required_themes: [light, dark]
+  optional_themes: []
+  supports_density: true
+  supports_shape: false
+  merge_order: [base, brand, mode, density]

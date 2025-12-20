@@ -1,0 +1,49 @@
+dcf_version: "1.0.0"
+profile: strict
+
+component: Card
+category: layout
+description: Container for grouping related content
+
+props:
+  title:
+    type: string
+    optional: true
+  subtitle:
+    type: string
+    optional: true
+  children: slot
+
+variants:
+  elevation: [flat, raised]
+  padding: [none, sm, md, lg]
+
+tokens:
+  flat:
+    background: color.bg
+    border: color.border
+    shadow: none
+  raised:
+    background: color.bg
+    border: none
+    shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1)
+
+layout:
+  borderRadius: radius.lg
+  padding:
+    none: space.none
+    sm: space.sm
+    md: space.md
+    lg: space.lg
+  direction:
+    default: column
+    below_sm: column
+  gap: space.sm
+
+variant_defaults:
+  elevation: flat
+  padding: md
+
+accessibility:
+  role: region
+  keyboard: false
