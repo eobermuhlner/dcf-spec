@@ -2,6 +2,8 @@
 
 The canonical source of truth for the **Design Concept Format (DCF)** — a text-first, deterministic format for describing complete UI design systems and application structures.
 
+📄 **Documentation:** https://eobermuhlner.github.io/dcf-spec/
+
 ## What is DCF?
 
 DCF is a specification for describing UI design systems in a way that is:
@@ -41,9 +43,9 @@ dcf-spec/
 
 | Resource | Description |
 |----------|-------------|
-| [Specification](spec/v1.0.0/design-concept-format.md) | Full DCF v1.0.0 specification |
-| [JSON Schema](schema/v1.0.0/) | Machine-readable validation schemas |
-| [Examples](examples/) | Reference implementations by profile |
+| [Specification](https://eobermuhlner.github.io/dcf-spec/spec/v1.0.0/design-concept-format) | Full DCF v1.0.0 specification |
+| [JSON Schemas](https://eobermuhlner.github.io/dcf-spec/schema/v1.0.0/) | Machine-readable validation schemas |
+| [Examples](https://eobermuhlner.github.io/dcf-spec/examples/) | Reference implementations by profile |
 | [Changelog](CHANGELOG.md) | Version history and migration notes |
 
 ## Core Concepts
@@ -123,13 +125,13 @@ This specification follows [Semantic Versioning](https://semver.org/):
 
 ## Stable URLs
 
-Published documentation is available at predictable URLs:
+Published documentation is available at:
 
-```
-/spec/v1.0.0/                    # Specification
-/schema/v1.0.0/dcf.schema.json   # JSON Schema
-/latest/                         # Redirect to newest stable
-```
+| Resource | URL |
+|----------|-----|
+| Specification | https://eobermuhlner.github.io/dcf-spec/spec/v1.0.0/design-concept-format |
+| JSON Schemas | https://eobermuhlner.github.io/dcf-spec/schema/v1.0.0/ |
+| Examples | https://eobermuhlner.github.io/dcf-spec/examples/ |
 
 ## Related Projects
 
