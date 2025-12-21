@@ -1,0 +1,72 @@
+dcf_version: "1.0.0"
+profile: standard
+
+component: Text
+category: typography
+description: Text component for displaying content with semantic meaning
+
+props:
+  children: string
+  as:
+    type: enum
+    values: [p, span, strong, em, small]
+    default: p
+
+variants:
+  size: [xs, sm, base, lg]
+  weight: [normal, medium, semibold, bold]
+  color: [default, muted, primary, error, success]
+
+tokens:
+  default:
+    color: color.fg
+  muted:
+    color: color.muted
+  primary:
+    color: color.primary
+  error:
+    color: color.error
+  success:
+    color: color.success
+
+layout:
+  fontSize:
+    xs: fontSize.xs
+    sm: fontSize.sm
+    base: fontSize.base
+    lg: fontSize.lg
+  fontFamily: font.body.family
+  lineHeight: font.body.lineHeight
+
+---
+dcf_version: "1.0.0"
+profile: standard
+
+component: Heading
+category: typography
+description: Heading component for section titles with semantic levels
+
+props:
+  children: string
+  level:
+    type: enum
+    values: [1, 2, 3, 4, 5, 6]
+    default: 2
+
+variants:
+  size: [sm, md, lg, xl, 2xl]
+
+layout:
+  fontSize:
+    sm: fontSize.lg
+    md: fontSize.xl
+    lg: fontSize.2xl
+    xl: fontSize.3xl
+    2xl: fontSize.4xl
+  fontFamily: font.heading.family
+  fontWeight: font.heading.weight
+  lineHeight: font.heading.lineHeight
+  color: color.fg
+
+accessibility:
+  semantic_level: level

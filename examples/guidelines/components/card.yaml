@@ -1,0 +1,43 @@
+dcf_version: "1.0.0"
+profile: standard
+
+component: Card
+category: container
+description: A container for grouping related content with optional header and footer
+
+props:
+  title:
+    type: string
+    optional: true
+  children:
+    type: slot
+    required: true
+
+variants:
+  elevation: [flat, raised, bordered]
+  padding: [none, sm, md, lg]
+
+tokens:
+  flat:
+    background: color.bg
+  raised:
+    background: color.bg
+    shadow: shadow.md
+  bordered:
+    background: color.bg
+    border: color.border
+
+states:
+  default: {}
+
+layout:
+  padding:
+    none: space.0
+    sm: space.sm
+    md: space.md
+    lg: space.lg
+  borderRadius: radius.lg
+
+accessibility:
+  role: region
+  label_from: title

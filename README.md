@@ -30,7 +30,8 @@ dcf-spec/
 │       ├── component.schema.json
 │       └── ...
 ├── examples/                # Reference implementations
-│   ├── minimal/             # Bare minimum valid DCF
+│   ├── lite/                # Bare minimum valid DCF
+│   ├── guidelines/          # Design system without concrete app
 │   ├── standard/            # Typical production usage
 │   └── strict/              # Full compliance examples
 ├── decisions/               # Architecture Decision Records
@@ -129,8 +130,10 @@ Published documentation is available at:
 
 | Resource | URL |
 |----------|-----|
-| Specification | https://eobermuhlner.github.io/dcf-spec/spec/v1.0.0/design-concept-format |
-| JSON Schemas | https://eobermuhlner.github.io/dcf-spec/schema/v1.0.0/ |
+| Latest Specification | https://eobermuhlner.github.io/dcf-spec/latest/ |
+| Latest Schemas | https://eobermuhlner.github.io/dcf-spec/schema/latest/ |
+| Specification v1.0.0 | https://eobermuhlner.github.io/dcf-spec/spec/v1.0.0/design-concept-format |
+| JSON Schemas v1.0.0 | https://eobermuhlner.github.io/dcf-spec/schema/v1.0.0/ |
 | Examples | https://eobermuhlner.github.io/dcf-spec/examples/ |
 
 ## Related Projects

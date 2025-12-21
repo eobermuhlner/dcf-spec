@@ -1,4 +1,4 @@
-# Minimal DCF Example
+# Lite DCF Example
 
 This example demonstrates the bare minimum valid DCF structure using the `lite` profile.
 
