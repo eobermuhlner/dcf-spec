@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: component
 profile: standard
-
-component: Input
+name: Input
 category: form
 description: Text input field for forms
 

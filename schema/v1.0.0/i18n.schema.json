@@ -10,6 +10,11 @@
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
       "description": "Semantic version of the DCF specification"
     },
+    "kind": {
+      "type": "string",
+      "const": "i18n",
+      "description": "File type discriminator"
+    },
     "locale": {
       "type": "string",
       "pattern": "^[a-z]{2,3}(-[A-Za-z]{4})?(-[A-Z]{2})?$",
@@ -30,7 +35,7 @@
       "$ref": "#/definitions/format_config"
     }
   },
-  "required": ["dcf_version", "locale", "strings"],
+  "required": ["dcf_version", "kind", "locale", "strings"],
   "definitions": {
     "string_value": {
       "oneOf": [

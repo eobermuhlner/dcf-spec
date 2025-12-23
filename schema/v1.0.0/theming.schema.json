@@ -10,11 +10,16 @@
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
       "description": "Semantic version of the DCF specification"
     },
+    "kind": {
+      "type": "string",
+      "const": "theming",
+      "description": "File type discriminator"
+    },
     "theming": {
       "$ref": "#/definitions/theming_config"
     }
   },
-  "required": ["dcf_version", "theming"],
+  "required": ["dcf_version", "kind", "theming"],
   "definitions": {
     "theming_config": {
       "type": "object",

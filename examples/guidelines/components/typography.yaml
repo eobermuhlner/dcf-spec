@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: component
 profile: standard
-
-component: Text
+name: Text
 category: typography
 description: Text component for displaying content with semantic meaning
 
@@ -40,9 +40,9 @@ layout:
 
 ---
 dcf_version: "1.0.0"
+kind: component
 profile: standard
-
-component: Heading
+name: Heading
 category: typography
 description: Heading component for section titles with semantic levels
 

@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: flow
 profile: strict
-
-flow: CreateItem
+name: CreateItem
 start: ItemsPage
 
 steps:

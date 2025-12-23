@@ -10,6 +10,11 @@
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
       "description": "Semantic version of the DCF specification"
     },
+    "kind": {
+      "type": "string",
+      "const": "rules",
+      "description": "File type discriminator"
+    },
     "profile": {
       "type": "string",
       "enum": ["lite", "standard", "strict"],
@@ -22,7 +27,7 @@
       "$ref": "#/definitions/intents_config"
     }
   },
-  "required": ["dcf_version", "rules"],
+  "required": ["dcf_version", "kind", "rules"],
   "definitions": {
     "rules_config": {
       "type": "object",

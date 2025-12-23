@@ -10,12 +10,17 @@
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
       "description": "Semantic version of the DCF specification"
     },
+    "kind": {
+      "type": "string",
+      "const": "navigation",
+      "description": "File type discriminator"
+    },
     "profile": {
       "type": "string",
       "enum": ["lite", "standard", "strict"],
       "description": "Validation profile level"
     },
-    "app": {
+    "name": {
       "type": "string",
       "description": "Application name"
     },
@@ -32,7 +37,7 @@
       }
     }
   },
-  "required": ["dcf_version", "routes"],
+  "required": ["dcf_version", "kind", "name", "routes"],
   "definitions": {
     "route": {
       "type": "object",

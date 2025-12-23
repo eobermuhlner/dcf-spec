@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: navigation
 profile: strict
-
-app: ItemManager
+name: ItemManager
 
 routes:
   dashboard:

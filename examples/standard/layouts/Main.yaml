@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: layout
 profile: standard
-
-layout: Main
+name: Main
 description: Standard application shell with header and content
 
 direction: auto

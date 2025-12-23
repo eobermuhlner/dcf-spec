@@ -1,4 +1,6 @@
 {
+  "dcf_version": "1.0.0",
+  "kind": "theme",
   "theme": {
     "space": {
       "xs": "2px",

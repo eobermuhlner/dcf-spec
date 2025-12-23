@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: component
 profile: strict
-
-component: Text
+name: Text
 category: primitive
 description: Typography rendering with semantic variants
 

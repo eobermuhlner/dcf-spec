@@ -26,8 +26,8 @@ All DCF files must declare the specification version they conform to:
 
 ```yaml
 dcf_version: "1.0.0"
-
-component: Button
+kind: component
+name: Button
 # ... rest of component definition
 ```
 
@@ -80,9 +80,9 @@ compatibility:
 
 ```yaml
 dcf_version: "1.0.0"
+kind: component
 profile: standard  # lite | standard | strict
-
-component: Button
+name: Button
 # ...
 ```
 
@@ -236,6 +236,79 @@ If `capabilities` is omitted, tools should assume all layers are in use.
 
 ---
 
+### 0.3 File Type Identification
+
+**Scope:** Explicit file type discriminator for all DCF files
+**Goal:** Unambiguous schema selection, consistent structure, self-documenting files
+
+All DCF files must declare their type using the `kind` field:
+
+```yaml
+dcf_version: "1.0.0"
+kind: screen
+profile: standard
+name: UsersPage
+# ... rest of content
+```
+
+**Valid `kind` Values**
+
+| kind | Has `name`? | Description |
+|------|-------------|-------------|
+| `tokens` | No | Design token definitions |
+| `theme` | No | Theme overrides |
+| `theming` | No | Theme configuration |
+| `component` | Yes | UI component definition |
+| `layout` | Yes | Layout template |
+| `screen` | Yes | Screen/page definition |
+| `navigation` | Yes | App navigation (name = app name) |
+| `flow` | Yes | Multi-step flow |
+| `rules` | No | Validation/business rules |
+| `i18n` | No | Internationalization strings |
+
+**Field Order Convention**
+
+The recommended field order for DCF files:
+
+```yaml
+dcf_version: "1.0.0"   # 1. Always first
+kind: component        # 2. File type discriminator
+profile: standard      # 3. Validation profile (optional)
+name: Button           # 4. Entity name (if applicable)
+# ... rest of content
+```
+
+**Examples**
+
+Token file (no `name` field):
+```json
+{
+  "dcf_version": "1.0.0",
+  "kind": "tokens",
+  "color": {
+    "primary": { "value": "#007AFF" }
+  }
+}
+```
+
+Component file (with `name` field):
+```yaml
+dcf_version: "1.0.0"
+kind: component
+name: Button
+category: control
+props:
+  label: string
+```
+
+**Rules**
+- Every DCF file must include `kind` as a required field
+- The `kind` value determines which schema validates the file
+- Files with named entities (component, screen, layout, flow, navigation) must include `name`
+- The `name` field uses PascalCase for components, screens, layouts, and flows
+
+---
+
 ## 1. Design Tokens
 
 **Scope:** Visual constants only (colors, spacing, typography, radii, shadows, etc.)
@@ -316,7 +389,8 @@ Font tokens must define at least one property.
 **Motion in Components**
 
 ```yaml
-component: Button
+kind: component
+name: Button
 states:
   hover:
     transition:
@@ -371,7 +445,8 @@ accessibility:
 **Icon Usage in Components**
 
 ```yaml
-component: Button
+kind: component
+name: Button
 props:
   label: string
   icon:
@@ -532,7 +607,8 @@ theming:
 **Layout Responsiveness**
 
 ```yaml
-layout: Main
+kind: layout
+name: Main
 regions:
   sidebar:
     role: persistent
@@ -553,7 +629,8 @@ regions:
 **Component Responsiveness**
 
 ```yaml
-component: Card
+kind: component
+name: Card
 layout:
   direction:
     default: row
@@ -583,7 +660,8 @@ layout:
 **Naming:** Component names must be PascalCase (pattern: `^[A-Z][a-zA-Z0-9]*$`)
 
 ```yaml
-component: Button
+kind: component
+name: Button
 category: control
 description: Triggers an action
 
@@ -644,7 +722,8 @@ Components should be organized by category for discoverability:
 **Goal:** Deterministic mapping from state → token overrides
 
 ```yaml
-component: Button
+kind: component
+name: Button
 variants:
   intent: [primary, secondary, danger]
 
@@ -725,7 +804,8 @@ transforms:
 **Goal:** Prevent invalid or untested states
 
 ```yaml
-component: Button
+kind: component
+name: Button
 variants:
   intent: [primary, secondary, danger]
   size: [sm, md, lg]
@@ -797,7 +877,8 @@ Every DCF implementation should include these primitive components:
 **Text** - Typography rendering with semantic variants
 
 ```yaml
-component: Text
+kind: component
+name: Text
 category: primitive
 
 props:
@@ -813,7 +894,8 @@ props:
 **Container** - Flexible layout wrapper
 
 ```yaml
-component: Container
+kind: component
+name: Container
 category: primitive
 
 props:
@@ -829,7 +911,8 @@ props:
 **Icon** - Icon rendering with size variants
 
 ```yaml
-component: Icon
+kind: component
+name: Icon
 category: primitive
 
 props:
@@ -847,7 +930,8 @@ layout:
 **Image** - Responsive image with loading states
 
 ```yaml
-component: Image
+kind: component
+name: Image
 category: primitive
 
 props:
@@ -880,7 +964,8 @@ states:
 **Naming:** Layout names must be PascalCase (pattern: `^[A-Z][a-zA-Z0-9]*$`)
 
 ```yaml
-layout: Main
+kind: layout
+name: Main
 description: Standard application shell
 
 regions:
@@ -895,7 +980,8 @@ regions:
 ```
 
 ```yaml
-layout: Detail
+kind: layout
+name: Detail
 description: Focused content with back navigation
 
 regions:
@@ -918,7 +1004,8 @@ regions:
 **Modeled as a graph, not a tree**
 
 ```yaml
-app: AdminConsole
+kind: navigation
+name: AdminConsole
 
 routes:
   dashboard:
@@ -961,7 +1048,8 @@ transitions:
 **Naming:** Screen names must be PascalCase (pattern: `^[A-Z][a-zA-Z0-9]*$`)
 
 ```yaml
-screen: UsersPage
+kind: screen
+name: UsersPage
 intent: browse
 description: View and manage users
 
@@ -1010,7 +1098,8 @@ Custom intents may be defined in `rules.yaml` under an `intents.custom` key.
 **Data Sources**
 
 ```yaml
-screen: UsersPage
+kind: screen
+name: UsersPage
 intent: browse
 
 data:
@@ -1089,7 +1178,8 @@ data_states:
 **Handling Stale Data in Screens**
 
 ```yaml
-screen: UsersPage
+kind: screen
+name: UsersPage
 intent: browse
 
 data:
@@ -1157,7 +1247,8 @@ data:
 **Naming:** Flow names must be PascalCase (pattern: `^[A-Z][a-zA-Z0-9]*$`)
 
 ```yaml
-flow: CreateUser
+kind: flow
+name: CreateUser
 start: UsersPage
 
 steps:
@@ -1180,7 +1271,8 @@ steps:
 **Goal:** Enable contextual error recovery
 
 ```yaml
-flow: CreateUser
+kind: flow
+name: CreateUser
 start: UsersPage
 
 steps:
@@ -1284,7 +1376,8 @@ error_recovery:
 **Screen Error Display**
 
 ```yaml
-screen: UserFormPage
+kind: screen
+name: UserFormPage
 intent: create
 
 error_display:
@@ -1404,7 +1497,8 @@ theming:
 ### 10.1 Layout Direction
 
 ```yaml
-layout: Main
+kind: layout
+name: Main
 direction: auto  # reads from document/locale
 
 regions:
@@ -1438,7 +1532,8 @@ alignment:
 ### 10.2 String Externalization
 
 ```yaml
-screen: UsersPage
+kind: screen
+name: UsersPage
 
 strings:
   title:

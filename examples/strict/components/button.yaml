@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: component
 profile: strict
-
-component: Button
+name: Button
 category: control
 description: Interactive button for triggering actions
 

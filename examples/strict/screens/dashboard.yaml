@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: screen
 profile: strict
-
-screen: DashboardPage
+name: DashboardPage
 intent: dashboard
 description: Overview of key metrics and recent activity
 

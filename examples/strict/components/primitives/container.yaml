@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: component
 profile: strict
-
-component: Container
+name: Container
 category: primitive
 description: Flexible layout wrapper with directional support
 

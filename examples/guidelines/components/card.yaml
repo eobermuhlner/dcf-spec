@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
+kind: component
 profile: standard
-
-component: Card
+name: Card
 category: container
 description: A container for grouping related content with optional header and footer
 

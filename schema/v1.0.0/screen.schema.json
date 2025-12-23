@@ -10,12 +10,17 @@
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
       "description": "Semantic version of the DCF specification"
     },
+    "kind": {
+      "type": "string",
+      "const": "screen",
+      "description": "File type discriminator"
+    },
     "profile": {
       "type": "string",
       "enum": ["lite", "standard", "strict"],
       "description": "Validation profile level"
     },
-    "screen": {
+    "name": {
       "type": "string",
       "pattern": "^[A-Z][a-zA-Z0-9]*$",
       "description": "Screen name (PascalCase)"
@@ -57,7 +62,7 @@
       "$ref": "#/definitions/error_display"
     }
   },
-  "required": ["dcf_version", "screen", "intent"],
+  "required": ["dcf_version", "kind", "name", "intent"],
   "definitions": {
     "data_source": {
       "type": "object",

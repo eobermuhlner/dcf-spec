@@ -1,4 +1,5 @@
 dcf_version: "1.0.0"
+kind: theming
 
 theming:
   customizable_token_groups: [color, space]
