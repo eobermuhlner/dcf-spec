@@ -6,23 +6,23 @@ app: ItemManager
 routes:
   dashboard:
     path: /
-    layout: main
+    layout: Main
     screen: DashboardPage
 
   items:
     path: /items
-    layout: main
+    layout: Main
     screen: ItemsPage
 
   item_detail:
     path: /items/:id
-    layout: main
+    layout: Main
     screen: ItemDetailPage
     parent: items
 
   item_create:
     path: /items/new
-    layout: main
+    layout: Main
     screen: ItemCreatePage
     parent: items
 

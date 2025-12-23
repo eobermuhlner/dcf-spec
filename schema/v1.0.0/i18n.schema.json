@@ -7,12 +7,13 @@
   "properties": {
     "dcf_version": {
       "type": "string",
-      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the DCF specification"
     },
     "locale": {
       "type": "string",
-      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
-      "description": "Locale code (e.g., 'en', 'en-US', 'de')"
+      "pattern": "^[a-z]{2,3}(-[A-Za-z]{4})?(-[A-Z]{2})?$",
+      "description": "Locale code (e.g., 'en', 'en-US', 'de', 'zh-Hans', 'sr-Latn-RS')"
     },
     "direction": {
       "type": "string",
@@ -29,6 +30,7 @@
       "$ref": "#/definitions/format_config"
     }
   },
+  "required": ["dcf_version", "locale", "strings"],
   "definitions": {
     "string_value": {
       "oneOf": [
@@ -44,14 +46,25 @@
             "many": { "type": "string" },
             "other": { "type": "string" }
           },
-          "required": ["other"]
+          "required": ["other"],
+          "additionalProperties": false
         },
         {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/string_value"
           },
-          "description": "Nested namespace"
+          "not": {
+            "anyOf": [
+              { "required": ["other"] },
+              { "required": ["zero"] },
+              { "required": ["one"] },
+              { "required": ["two"] },
+              { "required": ["few"] },
+              { "required": ["many"] }
+            ]
+          },
+          "description": "Nested namespace (keys must not be plural form keywords)"
         }
       ]
     },
@@ -76,7 +89,8 @@
             "$ref": "#/definitions/list_format"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "date_format": {
       "type": "object",
@@ -85,7 +99,8 @@
           "type": "string",
           "enum": ["short", "medium", "long", "full", "relative"]
         }
-      }
+      },
+      "additionalProperties": false
     },
     "number_format": {
       "type": "object",
@@ -96,7 +111,8 @@
         },
         "currency": { "type": "string" },
         "unit": { "type": "string" }
-      }
+      },
+      "additionalProperties": false
     },
     "list_format": {
       "type": "object",
@@ -105,7 +121,8 @@
           "type": "string",
           "enum": ["conjunction", "disjunction", "unit"]
         }
-      }
+      },
+      "additionalProperties": false
     }
   }
 }

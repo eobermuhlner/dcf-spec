@@ -22,6 +22,9 @@
   },
   "required": ["dcf_version"],
   "definitions": {
+    "_external_reference_note": {
+      "description": "The definitions below (token_reference, space_token, color_token, data_binding) are canonical type definitions intended for use by other DCF schemas and tooling via $ref. They define common patterns used across the DCF specification."
+    },
     "capabilities": {
       "type": "object",
       "description": "Declare which DCF layers are in use",
@@ -41,22 +44,22 @@
     "token_reference": {
       "type": "string",
       "pattern": "^\\{[a-zA-Z][a-zA-Z0-9._-]*\\}$|^[a-zA-Z][a-zA-Z0-9._-]*$",
-      "description": "Reference to a design token (e.g., 'color.accent' or '{theme.color.bg}')"
+      "description": "Reference to a design token (e.g., 'color.accent' or '{theme.color.bg}'). This is a canonical type for external reference."
     },
     "space_token": {
       "type": "string",
       "pattern": "^space\\.[a-zA-Z][a-zA-Z0-9_-]*$",
-      "description": "Reference to a spacing token"
+      "description": "Reference to a spacing token. This is a canonical type for external reference."
     },
     "color_token": {
       "type": "string",
       "pattern": "^color\\.[a-zA-Z][a-zA-Z0-9_-]*$",
-      "description": "Reference to a color token"
+      "description": "Reference to a color token. This is a canonical type for external reference."
     },
     "data_binding": {
       "type": "string",
       "pattern": "^\\$[a-zA-Z][a-zA-Z0-9._]*$",
-      "description": "Data binding reference (e.g., '$users.data')"
+      "description": "Data binding reference (e.g., '$users.data'). This is a canonical type for external reference."
     }
   }
 }

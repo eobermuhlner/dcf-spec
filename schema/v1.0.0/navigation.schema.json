@@ -7,11 +7,13 @@
   "properties": {
     "dcf_version": {
       "type": "string",
-      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the DCF specification"
     },
     "profile": {
       "type": "string",
-      "enum": ["lite", "standard", "strict"]
+      "enum": ["lite", "standard", "strict"],
+      "description": "Validation profile level"
     },
     "app": {
       "type": "string",
@@ -57,7 +59,8 @@
           "description": "Route guards (e.g., auth requirements)"
         }
       },
-      "required": ["path", "screen"]
+      "required": ["path", "screen"],
+      "additionalProperties": false
     },
     "transition": {
       "type": "object",
@@ -84,7 +87,8 @@
           "description": "Transition animation type"
         }
       },
-      "required": ["from", "to", "trigger"]
+      "required": ["from", "to", "trigger"],
+      "additionalProperties": false
     }
   }
 }

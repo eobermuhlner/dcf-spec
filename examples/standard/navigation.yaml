@@ -6,12 +6,12 @@ app: UserManagement
 routes:
   users:
     path: /users
-    layout: main
+    layout: Main
     screen: UsersPage
 
   user_detail:
     path: /users/:id
-    layout: main
+    layout: Main
     screen: UserDetailPage
     parent: users
 

@@ -65,8 +65,8 @@ compatibility:
 ```
 
 **Rules**
-- Every DCF file must include `dcf_version` as the first key
-- Version must be a valid semver string
+- Every DCF file must include `dcf_version` as a required field (first key recommended)
+- Version must be a valid semver string matching pattern `^[0-9]+\.[0-9]+\.[0-9]+$`
 - Tools must validate version before parsing
 - Older tools should reject files with higher MAJOR versions
 - Migration guides must accompany MAJOR version bumps
@@ -241,6 +241,8 @@ If `capabilities` is omitted, tools should assume all layers are in use.
 **Scope:** Visual constants only (colors, spacing, typography, radii, shadows, etc.)
 **No semantics, no behavior, no routing**
 
+Token files support the optional `profile` field for validation level (lite/standard/strict).
+
 ```json
 {
   "color": {
@@ -267,6 +269,15 @@ If `capabilities` is omitted, tools should assume all layers are in use.
   }
 }
 ```
+
+**Font Token Properties**
+- `family`: Font family name (string)
+- `size`: Font size with units, e.g., `"16px"`, `"1rem"` (string)
+- `lineHeight`: Line height, unitless or with units (string or number)
+- `weight`: Font weight, e.g., `400`, `"bold"` (string or number)
+- `letterSpacing`: Letter spacing with units (string)
+
+Font tokens must define at least one property.
 
 **Rules**
 - Tokens must be atomic and reusable
@@ -521,7 +532,7 @@ theming:
 **Layout Responsiveness**
 
 ```yaml
-layout: main
+layout: Main
 regions:
   sidebar:
     role: persistent
@@ -568,6 +579,8 @@ layout:
 
 **Scope:** Reusable UI building blocks
 **No routing, no application state**
+
+**Naming:** Component names must be PascalCase (pattern: `^[A-Z][a-zA-Z0-9]*$`)
 
 ```yaml
 component: Button
@@ -864,8 +877,10 @@ states:
 **Scope:** Page grammar and region composition
 **Defines where things may exist**
 
+**Naming:** Layout names must be PascalCase (pattern: `^[A-Z][a-zA-Z0-9]*$`)
+
 ```yaml
-layout: main
+layout: Main
 description: Standard application shell
 
 regions:
@@ -880,7 +895,7 @@ regions:
 ```
 
 ```yaml
-layout: detail
+layout: Detail
 description: Focused content with back navigation
 
 regions:
@@ -908,17 +923,17 @@ app: AdminConsole
 routes:
   dashboard:
     path: /
-    layout: main
+    layout: Main
     screen: DashboardPage
 
   users:
     path: /users
-    layout: main
+    layout: Main
     screen: UsersPage
 
   user_detail:
     path: /users/:id
-    layout: detail
+    layout: Detail
     screen: UserDetailPage
     parent: users
 ```
@@ -942,6 +957,8 @@ transitions:
 
 **Scope:** Intent + component composition
 **This is where UI meaning lives**
+
+**Naming:** Screen names must be PascalCase (pattern: `^[A-Z][a-zA-Z0-9]*$`)
 
 ```yaml
 screen: UsersPage
@@ -1136,6 +1153,8 @@ data:
 
 **Scope:** Multi-step user journeys
 **Declarative success/error paths**
+
+**Naming:** Flow names must be PascalCase (pattern: `^[A-Z][a-zA-Z0-9]*$`)
 
 ```yaml
 flow: CreateUser
@@ -1336,20 +1355,20 @@ design/
  │   └─ rounded.json          # Rounded shape variant
  ├─ components/
  │   ├─ primitives/           # Basic building blocks
- │   │   ├─ text.yaml
- │   │   ├─ container.yaml
- │   │   └─ icon.yaml
- │   ├─ button.yaml
- │   └─ input.yaml
+ │   │   ├─ Text.yaml
+ │   │   ├─ Container.yaml
+ │   │   └─ Icon.yaml
+ │   ├─ Button.yaml
+ │   └─ Input.yaml
  ├─ layouts/
- │   ├─ main.yaml
- │   └─ detail.yaml
+ │   ├─ Main.yaml
+ │   └─ Detail.yaml
  ├─ navigation.yaml
  ├─ screens/
- │   ├─ users.yaml
- │   └─ user_detail.yaml
+ │   ├─ UsersPage.yaml
+ │   └─ UserDetailPage.yaml
  ├─ flows/
- │   └─ create_user.yaml
+ │   └─ CreateUser.yaml
  ├─ i18n/
  │   ├─ en.yaml
  │   └─ strings.yaml
@@ -1375,10 +1394,17 @@ theming:
 **Scope:** Multi-language, RTL, and locale-aware formatting
 **Goal:** Design system must be locale-agnostic
 
+**Required fields:** `dcf_version`, `locale`, `strings`
+
+**Locale format:** Pattern `^[a-z]{2,3}(-[A-Za-z]{4})?(-[A-Z]{2})?$` supports:
+- Two or three letter language codes: `en`, `de`, `yue`
+- Optional script subtags: `zh-Hans`, `sr-Latn`
+- Optional region codes: `en-US`, `zh-Hans-CN`, `sr-Latn-RS`
+
 ### 10.1 Layout Direction
 
 ```yaml
-layout: main
+layout: Main
 direction: auto  # reads from document/locale
 
 regions:
@@ -1547,3 +1573,5 @@ DCF separates UI concerns into orthogonal layers that are easy for both humans a
 - Data contracts with source types and states
 - Error context and recovery strategies in flows
 - Full internationalization support (RTL, plurals, formatting)
+- PascalCase naming enforcement for components, screens, flows, and layouts
+- Expanded locale pattern supporting script subtags (e.g., `zh-Hans`, `sr-Latn-RS`)

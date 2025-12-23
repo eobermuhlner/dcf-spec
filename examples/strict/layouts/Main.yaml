@@ -1,7 +1,7 @@
 dcf_version: "1.0.0"
 profile: strict
 
-layout: main
+layout: Main
 description: Standard application shell with sidebar and content
 
 direction: auto

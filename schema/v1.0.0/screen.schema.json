@@ -7,14 +7,17 @@
   "properties": {
     "dcf_version": {
       "type": "string",
-      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the DCF specification"
     },
     "profile": {
       "type": "string",
-      "enum": ["lite", "standard", "strict"]
+      "enum": ["lite", "standard", "strict"],
+      "description": "Validation profile level"
     },
     "screen": {
       "type": "string",
+      "pattern": "^[A-Z][a-zA-Z0-9]*$",
       "description": "Screen name (PascalCase)"
     },
     "intent": {
@@ -68,8 +71,14 @@
           "type": "string",
           "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]
         },
-        "params": { "type": "object" },
-        "headers": { "type": "object" },
+        "params": {
+          "type": "object",
+          "additionalProperties": { "type": ["string", "number", "boolean"] }
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
         "refresh": {
           "type": "string",
           "enum": ["on_focus", "on_mount", "manual", "interval"]
@@ -77,13 +86,32 @@
         "cache": { "type": "string" },
         "stale_while_revalidate": { "type": "boolean" },
         "key": { "type": "string" },
-        "initial": {},
+        "initial": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "boolean" },
+            { "type": "object" },
+            { "type": "array" },
+            { "type": "null" }
+          ]
+        },
         "persist": { "type": "boolean" },
         "from": { "type": "string" },
         "transform": { "type": "string" },
-        "value": {}
+        "value": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "boolean" },
+            { "type": "object" },
+            { "type": "array" },
+            { "type": "null" }
+          ]
+        }
       },
-      "required": ["source"]
+      "required": ["source"],
+      "additionalProperties": false
     },
     "string_definition": {
       "type": "object",
@@ -100,12 +128,15 @@
               "properties": {
                 "one": { "type": "string" },
                 "other": { "type": "string" }
-              }
+              },
+              "required": ["other"],
+              "additionalProperties": false
             }
           ]
         }
       },
-      "required": ["key", "fallback"]
+      "required": ["key", "fallback"],
+      "additionalProperties": false
     },
     "action": {
       "type": "object",
@@ -115,7 +146,8 @@
         "icon": { "type": "string" },
         "variant": { "type": "string" }
       },
-      "required": ["label", "action"]
+      "required": ["label", "action"],
+      "additionalProperties": false
     },
     "content_item": {
       "type": "object",
@@ -133,7 +165,8 @@
           "additionalProperties": true
         }
       },
-      "required": ["component"]
+      "required": ["component"],
+      "additionalProperties": false
     },
     "error_display": {
       "type": "object",
@@ -143,7 +176,8 @@
           "properties": {
             "component": { "type": "string" },
             "position": { "type": "string" }
-          }
+          },
+          "additionalProperties": false
         },
         "summary": {
           "type": "object",
@@ -151,7 +185,8 @@
             "component": { "type": "string" },
             "position": { "type": "string" },
             "show_when": { "type": "string" }
-          }
+          },
+          "additionalProperties": false
         },
         "toast": {
           "type": "object",
@@ -161,9 +196,11 @@
               "type": "array",
               "items": { "type": "string" }
             }
-          }
+          },
+          "additionalProperties": false
         }
-      }
+      },
+      "additionalProperties": false
     }
   }
 }

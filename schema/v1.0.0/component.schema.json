@@ -7,14 +7,17 @@
   "properties": {
     "dcf_version": {
       "type": "string",
-      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the DCF specification"
     },
     "profile": {
       "type": "string",
-      "enum": ["lite", "standard", "strict"]
+      "enum": ["lite", "standard", "strict"],
+      "description": "Validation profile level"
     },
     "component": {
       "type": "string",
+      "pattern": "^[A-Z][a-zA-Z0-9]*$",
       "description": "Component name (PascalCase)"
     },
     "category": {
@@ -96,7 +99,8 @@
               "type": "array",
               "items": { "type": "string" }
             }
-          }
+          },
+          "additionalProperties": false
         }
       ]
     },
@@ -134,7 +138,8 @@
         "property": { "type": "string" },
         "duration": { "type": "string" },
         "easing": { "type": "string" }
-      }
+      },
+      "additionalProperties": false
     },
     "layout_properties": {
       "type": "object",
@@ -201,7 +206,8 @@
           "type": "object",
           "additionalProperties": { "type": "string" }
         }
-      }
+      },
+      "additionalProperties": false
     }
   }
 }
