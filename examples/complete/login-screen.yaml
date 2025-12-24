@@ -1,0 +1,49 @@
+dcf_version: "1.0.0"
+kind: screen
+profile: standard
+name: LoginPage
+intent: authenticate
+description: User authentication screen
+
+data:
+  credentials:
+    source: static
+    params:
+      username: ""
+      password: ""
+
+strings:
+  title:
+    key: login.title
+    fallback: "Login"
+  username_label:
+    key: login.username
+    fallback: "Username"
+  password_label:
+    key: login.password
+    fallback: "Password"
+  submit_button:
+    key: login.submit
+    fallback: "Sign In"
+
+primary_actions:
+  - label: $strings.submit_button
+    action: submit(credentials)
+
+content:
+  - component: Text
+    props:
+      value: $strings.title
+  - component: Input
+    props:
+      label: $strings.username_label
+      name: username
+  - component: Input
+    props:
+      label: $strings.password_label
+      type: password
+      name: password
+  - component: Button
+    props:
+      label: $strings.submit_button
+      variant: primary

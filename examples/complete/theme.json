@@ -1,0 +1,11 @@
+{
+  "dcf_version": "1.0.0",
+  "kind": "theme",
+  "theme": {
+    "color": {
+      "primary": "#0055aa",
+      "background": "#f8f9fa",
+      "text": "#212529"
+    }
+  }
+}

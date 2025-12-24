@@ -1,0 +1,23 @@
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Input
+category: form
+description: Text input field
+
+props:
+  label: string
+  name: string
+  type: string
+
+layout:
+  padding: space.sm
+  borderRadius: radius.md
+  borderWidth: 1px
+  borderColor: color.text
+  fontFamily: font.body.family
+  fontSize: font.body.size
+
+accessibility:
+  role: textbox
+  keyboard: true

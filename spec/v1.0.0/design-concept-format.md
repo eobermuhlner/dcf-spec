@@ -1670,3 +1670,320 @@ DCF separates UI concerns into orthogonal layers that are easy for both humans a
 - Full internationalization support (RTL, plurals, formatting)
 - PascalCase naming enforcement for components, screens, flows, and layouts
 - Expanded locale pattern supporting script subtags (e.g., `zh-Hans`, `sr-Latn-RS`)
+
+## Complete Example
+
+Here's a simple but complete DCF example that demonstrates all the core concepts working together. This example can serve as a reference implementation for AI agents and developers learning the DCF specification.
+
+### Tokens (`tokens.json`)
+
+```json
+{
+  "dcf_version": "1.0.0",
+  "kind": "tokens",
+  "profile": "standard",
+  "color": {
+    "primary": {
+      "value": "#0066cc",
+      "description": "Primary brand color"
+    },
+    "on-primary": {
+      "value": "#ffffff",
+      "description": "Text on primary backgrounds"
+    },
+    "background": {
+      "value": "#ffffff",
+      "description": "Default background color"
+    },
+    "text": {
+      "value": "#333333",
+      "description": "Default text color"
+    }
+  },
+  "space": {
+    "xs": {
+      "value": "4px"
+    },
+    "sm": {
+      "value": "8px"
+    },
+    "md": {
+      "value": "16px"
+    },
+    "lg": {
+      "value": "24px"
+    }
+  },
+  "radius": {
+    "md": {
+      "value": "6px"
+    }
+  },
+  "font": {
+    "body": {
+      "family": "Inter, system-ui, sans-serif",
+      "size": "16px",
+      "lineHeight": "1.5",
+      "weight": "400"
+    }
+  }
+}
+```
+
+### Theme (`theme.json`)
+
+```json
+{
+  "dcf_version": "1.0.0",
+  "kind": "theme",
+  "theme": {
+    "color": {
+      "primary": "#0055aa",
+      "background": "#f8f9fa",
+      "text": "#212529"
+    }
+  }
+}
+```
+
+### Button Component (`button.yaml`)
+
+```yaml
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Button
+category: control
+description: Interactive button for triggering actions
+
+props:
+  label: string
+  variant: string
+  size: string
+  disabled: string
+
+variants:
+  variant: [primary, secondary]
+  size: [sm, md, lg]
+
+tokens:
+  primary:
+    background: color.primary
+    foreground: color.on-primary
+  secondary:
+    background: transparent
+    foreground: color.primary
+    border: color.primary
+
+states: []
+state_precedence: [disabled, hover, default]
+
+layout:
+  padding: space.md
+  borderRadius: radius.md
+  fontFamily: font.body.family
+  fontSize: font.body.size
+  lineHeight: font.body.lineHeight
+
+accessibility:
+  role: button
+  keyboard: true
+```
+
+### Input Component (`input.yaml`)
+
+```yaml
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Input
+category: form
+description: Text input field
+
+props:
+  label: string
+  name: string
+  type: string
+
+layout:
+  padding: space.sm
+  borderRadius: radius.md
+  borderWidth: 1px
+  borderColor: color.text
+  fontFamily: font.body.family
+  fontSize: font.body.size
+
+accessibility:
+  role: textbox
+  keyboard: true
+```
+
+### Text Component (`text.yaml`)
+
+```yaml
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Text
+category: primitive
+description: Text display component
+
+props:
+  value: string
+  variant: string
+
+variants:
+  variant: [body, heading]
+
+tokens:
+  body:
+    fontSize: font.body.size
+    lineHeight: font.body.lineHeight
+  heading:
+    fontSize: "24px"
+    fontWeight: "600"
+    lineHeight: "1.2"
+
+layout:
+  fontFamily: font.body.family
+  color: color.text
+
+accessibility:
+  role: none
+  keyboard: false
+```
+
+### Header Component (`header.yaml`)
+
+```yaml
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Header
+category: layout
+description: Application header component
+
+props:
+  title: string
+
+layout:
+  padding: space.md
+  backgroundColor: color.primary
+  color: color.on-primary
+
+accessibility:
+  role: banner
+  keyboard: false
+```
+
+### Main Layout (`main-layout.yaml`)
+
+```yaml
+dcf_version: "1.0.0"
+kind: layout
+profile: standard
+name: MainLayout
+description: Main application layout with header, content and footer
+
+regions:
+  header:
+    role: persistent
+    component: Header
+    position: block-start
+  sidebar:
+    role: persistent
+    component: Sidebar
+    position: inline-start
+  content:
+    role: dynamic
+    component: Content
+    position: inline-end
+  footer:
+    role: persistent
+    component: Footer
+    position: block-end
+```
+
+### Login Screen (`login-screen.yaml`)
+
+```yaml
+dcf_version: "1.0.0"
+kind: screen
+profile: standard
+name: LoginPage
+intent: authenticate
+description: User authentication screen
+
+data:
+  credentials:
+    source: static
+    params:
+      username: ""
+      password: ""
+
+strings:
+  title:
+    key: login.title
+    fallback: "Login"
+  username_label:
+    key: login.username
+    fallback: "Username"
+  password_label:
+    key: login.password
+    fallback: "Password"
+  submit_button:
+    key: login.submit
+    fallback: "Sign In"
+
+primary_actions:
+  - label: $strings.submit_button
+    action: submit(credentials)
+
+content:
+  - component: Text
+    props:
+      value: $strings.title
+  - component: Input
+    props:
+      label: $strings.username_label
+      name: username
+  - component: Input
+    props:
+      label: $strings.password_label
+      type: password
+      name: password
+  - component: Button
+    props:
+      label: $strings.submit_button
+      variant: primary
+```
+
+### Navigation (`navigation.yaml`)
+
+```yaml
+dcf_version: "1.0.0"
+kind: navigation
+profile: standard
+name: AppNavigation
+
+routes:
+  login:
+    path: /login
+    screen: LoginPage
+  dashboard:
+    path: /dashboard
+    screen: DashboardPage
+  profile:
+    path: /profile
+    screen: ProfilePage
+
+transitions:
+  - from: login
+    to: dashboard
+    trigger: submit
+  - from: dashboard
+    to: profile
+    trigger: click
+```
+
+This complete example demonstrates how all the core DCF concepts work together to create a cohesive design system. Each file represents a different layer of the system, and they all work together to define a complete UI application structure that can be validated, processed by AI tools, and used to generate code for various platforms.

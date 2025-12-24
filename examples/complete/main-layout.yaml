@@ -1,0 +1,23 @@
+dcf_version: "1.0.0"
+kind: layout
+profile: standard
+name: MainLayout
+description: Main application layout with header, content and footer
+
+regions:
+  header:
+    role: persistent
+    component: Header
+    position: block-start
+  sidebar:
+    role: persistent
+    component: Sidebar
+    position: inline-start
+  content:
+    role: dynamic
+    component: Content
+    position: inline-end
+  footer:
+    role: persistent
+    component: Footer
+    position: block-end

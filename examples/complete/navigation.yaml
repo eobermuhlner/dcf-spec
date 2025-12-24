@@ -1,0 +1,23 @@
+dcf_version: "1.0.0"
+kind: navigation
+profile: standard
+name: AppNavigation
+
+routes:
+  login:
+    path: /login
+    screen: LoginPage
+  dashboard:
+    path: /dashboard
+    screen: DashboardPage
+  profile:
+    path: /profile
+    screen: ProfilePage
+
+transitions:
+  - from: login
+    to: dashboard
+    trigger: submit
+  - from: dashboard
+    to: profile
+    trigger: click

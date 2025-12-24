@@ -1,0 +1,39 @@
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Button
+category: control
+description: Interactive button for triggering actions
+
+props:
+  label: string
+  variant: string
+  size: string
+  disabled: string
+
+variants:
+  variant: [primary, secondary]
+  size: [sm, md, lg]
+
+tokens:
+  primary:
+    background: color.primary
+    foreground: color.on-primary
+  secondary:
+    background: transparent
+    foreground: color.primary
+    border: color.primary
+
+states: []
+state_precedence: [disabled, hover, default]
+
+layout:
+  padding: space.md
+  borderRadius: radius.md
+  fontFamily: font.body.family
+  fontSize: font.body.size
+  lineHeight: font.body.lineHeight
+
+accessibility:
+  role: button
+  keyboard: true

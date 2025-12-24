@@ -1,0 +1,18 @@
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Header
+category: layout
+description: Application header component
+
+props:
+  title: string
+
+layout:
+  padding: space.md
+  backgroundColor: color.primary
+  color: color.on-primary
+
+accessibility:
+  role: banner
+  keyboard: false

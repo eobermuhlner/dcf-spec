@@ -1,0 +1,30 @@
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Text
+category: primitive
+description: Text display component
+
+props:
+  value: string
+  variant: string
+
+variants:
+  variant: [body, heading]
+
+tokens:
+  body:
+    fontSize: font.body.size
+    lineHeight: font.body.lineHeight
+  heading:
+    fontSize: "24px"
+    fontWeight: "600"
+    lineHeight: "1.2"
+
+layout:
+  fontFamily: font.body.family
+  color: color.text
+
+accessibility:
+  role: none
+  keyboard: false
