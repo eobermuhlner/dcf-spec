@@ -44,45 +44,21 @@ primary_actions:
     icon: icon.plus
 
 content:
-  - component: Container
+  - component: Text
     props:
-      direction: column
-      gap: space.lg
-
-    children:
-      - component: Text
-        props:
-          element: h1
-          variant: heading-lg
-          value: $strings.title
-
-      - component: Container
-        props:
-          direction: row
-          gap: space.md
-          wrap: true
-
-        children:
-          - component: Card
-            props:
-              title: $strings.stats_title
-            children:
-              - component: Text
-                props:
-                  value: $strings.item_count
-                  count: $stats.data.totalItems
-
-      - component: Card
-        props:
-          title: $strings.recent_title
-        children:
-          - component: ItemsList
-            condition: $recentItems.data
-            props:
-              items: $recentItems.data
-              compact: true
-
-          - component: EmptyState
-            condition: "!$recentItems.data && !$recentItems.loading"
-            props:
-              message: "No recent items"
+      element: h1
+      variant: heading-lg
+      value: $strings.title
+  - component: Text
+    props:
+      value: $strings.item_count
+      count: $stats.data.totalItems
+  - component: ItemsList
+    condition: $recentItems.data
+    props:
+      items: $recentItems.data
+      compact: true
+  - component: EmptyState
+    condition: "!$recentItems.data && !$recentItems.loading"
+    props:
+      message: "No recent items"

@@ -21,30 +21,11 @@ props:
 variants:
   size: [sm, md]
 
-states:
-  default:
-    border: color.border
-
-  focus:
-    border: color.primary
-    outline:
-      width: 2px
-      color: color.primary
-      offset: 0
-
-  error:
-    border: color.error
-
-  disabled:
-    opacity: 0.5
-    background: color.muted
-
+states: []
 state_precedence: [disabled, error, focus, default]
 
 layout:
-  padding:
-    sm: space.xs space.sm
-    md: space.sm space.md
+  padding: space.sm space.md
   borderRadius: radius.md
   borderWidth: 1px
 

@@ -7,25 +7,11 @@ description: Typography rendering with semantic variants
 
 props:
   value: string
-  element:
-    type: enum
-    values: [p, span, h1, h2, h3, h4, h5, h6, label]
-    default: span
-  variant:
-    type: enum
-    values: [body, body-sm, heading-lg, heading-md]
-    default: body
-  color:
-    type: enum
-    values: [default, muted, primary, error, success]
-    default: default
-  align:
-    type: enum
-    values: [start, center, end]
-    default: start
-  truncate:
-    type: boolean
-    default: false
+  element: string
+  variant: string
+  color: string
+  align: string
+  truncate: string
 
 tokens:
   default:

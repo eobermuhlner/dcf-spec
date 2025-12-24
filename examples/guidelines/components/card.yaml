@@ -2,16 +2,12 @@ dcf_version: "1.0.0"
 kind: component
 profile: standard
 name: Card
-category: container
+category: layout
 description: A container for grouping related content with optional header and footer
 
 props:
-  title:
-    type: string
-    optional: true
-  children:
-    type: slot
-    required: true
+  title: string
+  children: string
 
 variants:
   elevation: [flat, raised, bordered]
@@ -31,11 +27,7 @@ states:
   default: {}
 
 layout:
-  padding:
-    none: space.0
-    sm: space.sm
-    md: space.md
-    lg: space.lg
+  padding: space.md
   borderRadius: radius.lg
 
 accessibility:

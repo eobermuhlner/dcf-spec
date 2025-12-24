@@ -30,14 +30,7 @@ tokens:
 
 layout:
   borderRadius: radius.lg
-  padding:
-    none: space.none
-    sm: space.sm
-    md: space.md
-    lg: space.lg
-  direction:
-    default: column
-    below_sm: column
+  padding: space.md
   gap: space.sm
 
 variant_defaults:

@@ -47,10 +47,7 @@ states:
 state_precedence: [disabled, focus, hover, default]
 
 layout:
-  padding:
-    sm: space.xs space.sm
-    md: space.sm space.md
-    lg: space.md space.lg
+  padding: space.sm space.md
   borderRadius: radius.md
 
 accessibility:

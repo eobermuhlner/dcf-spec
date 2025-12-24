@@ -94,10 +94,7 @@ variant_defaults:
 
 layout:
   minHeight: size.touch-target
-  padding:
-    sm: space.xs space.sm
-    md: space.sm space.md
-    lg: space.md space.lg
+  padding: space.sm space.md
   borderRadius: radius.md
   icon:
     size:

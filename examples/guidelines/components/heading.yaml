@@ -1,0 +1,28 @@
+dcf_version: "1.0.0"
+kind: component
+profile: standard
+name: Heading
+category: primitive
+description: Heading component for section titles with semantic levels
+
+props:
+  children: string
+  level: string
+
+variants:
+  size: [sm, md, lg, xl, 2xl]
+
+layout:
+  fontSize:
+    sm: fontSize.lg
+    md: fontSize.xl
+    lg: fontSize.2xl
+    xl: fontSize.3xl
+    2xl: fontSize.4xl
+  fontFamily: font.heading.family
+  fontWeight: font.heading.weight
+  lineHeight: font.heading.lineHeight
+  color: color.fg
+
+accessibility:
+  semantic_level: level
